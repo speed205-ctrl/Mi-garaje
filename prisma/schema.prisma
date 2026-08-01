@@ -1,0 +1,57 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ProductStatus {
+  DISPONIBLE
+  RESERVADO
+  VENDIDO
+}
+
+enum Condition {
+  NUEVO
+  COMO_NUEVO
+  USADO
+}
+
+model Seller {
+  id        String    @id @default(uuid())
+  nombre    String
+  telefono  String?
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id          String        @id @default(uuid())
+  titulo      String
+  descripcion String
+  categoria   String
+  condicion   Condition     @default(USADO)
+  precioCosto Float         // Lo que le pagas a tu amigo
+  precioVenta Float         // Precio público
+  imagenes    String[]      // URLs de Cloudinary
+  status      ProductStatus @default(DISPONIBLE)
+  
+  sellerId    String
+  seller      Seller        @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Order       Order[]
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  precioTotal Float    // Precio de venta cobrado
+  ganancia    Float    // Comisión generada (precioVenta - precioCosto)
+  pagadoAmigo Boolean  @default(false) // Registro si ya le liquidaste a tu amigo
+  createdAt   DateTime @default(now())
+}

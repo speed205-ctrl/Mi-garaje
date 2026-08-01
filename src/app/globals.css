@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #fafafa;
+    color: #171717;
+  }
+}
+
+/* Minimal Badges - Clean Editorial Style */
+.badge-disponible {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-medium;
+}
+
+.badge-reservado {
+  @apply bg-amber-50 text-amber-700 border border-amber-200/80 font-medium;
+}
+
+.badge-vendido {
+  @apply bg-neutral-100 text-neutral-500 border border-neutral-200 font-medium;
+}
+
+.badge-nuevo {
+  @apply bg-neutral-900 text-white border border-neutral-900 font-medium;
+}
+
+.badge-como-nuevo {
+  @apply bg-neutral-100 text-neutral-800 border border-neutral-200 font-medium;
+}
+
+.badge-usado {
+  @apply bg-neutral-100 text-neutral-600 border border-neutral-200 font-medium;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
+
+
